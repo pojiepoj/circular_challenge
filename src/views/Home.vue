@@ -1,18 +1,41 @@
-<template>
-  <div class="home">
-    <img alt="Vue logo" src="../assets/logo.png">
-    <HelloWorld msg="Welcome to Your Vue.js App"/>
-  </div>
+<template lang="pug">
+div.login-wrap
+  Login(v-if='login')
+  Register(v-if='!login')
+div(v-if='login')
+  | click here to
+  span(@click='loginToggle') Register
+div(v-if='!login')
+  | click here to
+  span(@click='loginToggle') Login
 </template>
 
 <script>
 // @ is an alias to /src
-import HelloWorld from '@/components/HelloWorld.vue'
+import Login from '@/components/Login.vue'
+import Register from '@/components/Register.vue'
 
 export default {
   name: 'Home',
   components: {
-    HelloWorld
+    Login,
+    Register
+  },
+  data () {
+    return {
+      login: true
+    }
+  },
+  methods: {
+    loginToggle () {
+      this.login = !this.login
+    }
   }
 }
 </script>
+
+<style lang="scss" scoped>
+span{
+  cursor: pointer;
+}
+</style>

@@ -2,7 +2,7 @@ import { createApp } from 'vue'
 import App from './App.vue'
 import router from './router'
 import store from './store'
-import * as firebase from 'firebase/app'
+import { initializeApp } from 'firebase/app'
 
 //  Firebase Configuration
 var firebaseConfig = {
@@ -11,9 +11,11 @@ var firebaseConfig = {
   projectId: 'pokemon-challange',
   storageBucket: 'pokemon-challange.appspot.com',
   messagingSenderId: '98622271907',
-  appId: '1:98622271907:web:92c27240933f1428acaa16'
+  appId: '1:98622271907:web:92c27240933f1428acaa16',
+  measurementId: 'G-78L9VKWJNM'
 }
 
-firebase.initializeApp(firebaseConfig)
+// eslint-disable-next-line no-unused-vars
+const firebaseApp = initializeApp(firebaseConfig)
 
 createApp(App).use(store).use(router).mount('#app')
