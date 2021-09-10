@@ -5,55 +5,34 @@
   .login-item
     form.form.form-login(action="#" @submit.prevent="submit")
       .form-field
-        label.user(for='login-name')
-          span.hidden Name
-        input#login-name.form-input(type='text' placeholder='Name' name="name" required='' v-model="form.name")
-      .form-field
         label.user(for='login-email')
           span.hidden Email
-        input#login-email.form-input(type='text' placeholder='Email' name="email" required='' v-model="form.email")
+        input#login-email.form-input(type='text' placeholder='Email' name="email" required='')
       .form-field
         label.lock(for='login-password')
           span.hidden Password
-        input#login-password.form-input(type='password' name='password' placeholder='Password' required='' v-model="form.password")
+        input#login-password.form-input(type='password' name='password' placeholder='Password' required='')
       .form-field
         input(type='submit' value='Register')
 </template>
 
 <script>
-// import { firebase } from 'firebase/app'
-import { useRouter } from 'vue-router'
 import { getAuth, createUserWithEmailAndPassword } from 'firebase/auth'
-
-const auth = getAuth()
-
-const router = useRouter()
-
+import { useRouter } from 'vue-router'
 export default {
-  data () {
-    return {
-      form: {
-        name: '',
-        email: '',
-        password: ''
-      },
-      error: null
+  setup () {
+    const auth = getAuth()
+    const router = useRouter()
+    const submit = async e => {
+      const { email, password } = e.target.elements
+      try {
+        await createUserWithEmailAndPassword(auth, email.value, password.value)
+        router.push('/')
+      } catch (e) {
+        alert(e.message)
+      }
     }
-  },
-  methods: {
-    submit () {
-      // firebase
-      //  .auth()
-      createUserWithEmailAndPassword(auth, this.form.email, this.form.password)
-        .then((data) => {
-          console.log('Successfully registered!')
-          router.push('/feed') // redirect to the feed
-        })
-        .catch(error => {
-          console.log(error.code)
-          alert(error.message)
-        })
-    }
+    return { submit }
   }
 }
 </script>
