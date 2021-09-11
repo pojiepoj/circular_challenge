@@ -20,6 +20,7 @@
 import { getAuth, createUserWithEmailAndPassword } from 'firebase/auth'
 import { useRouter } from 'vue-router'
 export default {
+  name: 'Register',
   setup () {
     const auth = getAuth()
     const router = useRouter()
