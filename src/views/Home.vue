@@ -4,10 +4,10 @@ div.login-wrap
   Register(v-if='!login')
 div(v-if='login')
   | click here to
-  span(@click='loginToggle') Register
+  span(@click='loginToggle')  Register
 div(v-if='!login')
   | click here to
-  span(@click='loginToggle') Login
+  span(@click='loginToggle')  Login
 </template>
 
 <script>
