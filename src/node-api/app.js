@@ -15,15 +15,47 @@ var options = {
 }
 var P = new Pokedex(options)
 
+// Add headers before the routes are defined
+app.use(function (req, res, next) {
+  // Website you wish to allow to connect
+  res.setHeader('Access-Control-Allow-Origin', '*');
+
+  // Request methods you wish to allow
+  res.setHeader('Access-Control-Allow-Methods', 'GET');
+
+  // Request headers you wish to allow
+  res.setHeader('Access-Control-Allow-Headers', 'X-Requested-With,content-type');
+
+  // Set to true if you need the website to include cookies in the requests sent
+  // to the API (e.g. in case you use sessions)
+  res.setHeader('Access-Control-Allow-Credentials', true);
+
+  // Pass to next layer of middleware
+  next();
+});
+
 app.get('/', (req, res) => {
   res.send('hello world');
 });
 
 app.get('/api/getpokemon/:id', (req, res) => {
   let num = req.params.id;
+  console.log(num);
   P.getPokemonByName(num) // with Promise
     .then(function (response) {
-      res.send(response);
+      // return only the necessary items
+      var o = {}; // empty Object
+      o.name = response.name;
+      o.img = response.sprites.front_default;
+      o.stats = [];
+      for (var key in response.stats) {
+        let item = response.stats[key];
+        let s = {};
+        s.name = item.stat.name;
+        s.value = item.base_stat;
+        o.stats.push(s);
+      }
+      res.send(o);
     })
     .catch(function (error) {
       console.log('There was an ERROR: ', error);

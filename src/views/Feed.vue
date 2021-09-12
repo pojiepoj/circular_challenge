@@ -5,25 +5,30 @@
         span.myButton(@click='signOutUser')  Logout
     .button__wrapper
         span.button__pokemon(@click='randomPokemon')  Generate Pokemon
-    form.example(action="#" @submit.prevent="submit")
+    form.search(action="#" @submit.prevent="submit")
       .wrapper
         label(for='text') Search Pokemon
-        input#text(type='text')
-        input(type='submit' value='Send')
+        input#text(type='text' name='searchtxt' placeholder='Pokemon Name...' v-model='searchtxt')
+        input(type='submit' value='Search')
+    div(v-if='pokemon != null')
+      h1 {{pokemon?.name}}
+      img(v-bind:src='pokemon.img')
+
 </template>
 
 <script>
 import { getAuth, signOut } from 'firebase/auth'
 import { useAuthState } from '../firebase'
 import { useRouter } from 'vue-router'
+
 export default {
   name: 'Feed',
   data () {
     return {
       ranNum: '',
-      loadNum: '',
-      api: 'https://pokeapi.co/api/v2/pokemon/',
-      pokemon: []
+      searchtxt: '',
+      endPoint: 'http://localhost:3000/api/getpokemon/',
+      pokemon: null
     }
   },
   setup () {
@@ -42,21 +47,21 @@ export default {
   },
   mounted () {
     this.ranNum = Math.floor((Math.random() * 898) + 1)
-    this.axios.get(this.api + this.ranNum).then((response) => {
-      console.log(response.data)
+    this.axios.get(this.endPoint + this.ranNum).then((response) => {
+      this.pokemon = response.data
     })
   },
   methods: {
     randomPokemon () {
       this.ranNum = Math.floor((Math.random() * 898) + 1)
-      this.axios.get(this.api + this.ranNum).then((response) => {
-        console.log(response.data)
+      this.axios.get(this.endPoint + this.ranNum).then((response) => {
+        this.pokemon = response.data
       })
     },
     submit () {
-      this.ranNum = Math.floor((Math.random() * 898) + 1)
-      this.axios.get(this.api + this.ranNum).then((response) => {
-        console.log(response.data)
+      console.log(this.endPoint + this.searchtxt)
+      this.axios.get(this.endPoint + this.searchtxt).then((response) => {
+        this.pokemon = response.data
       })
     }
   }
@@ -69,12 +74,12 @@ export default {
   height: inherit;
 }
 
-.example{
+.search{
   width: 100%;
   height: 100%;
 }
 
-.example label{
+.search label{
     margin: 0;
     font-size: 1.2em;
     font-weight: normal;
@@ -134,7 +139,7 @@ export default {
     background-color: rgba(96, 139, 168,.5);
     border-right: 1px solid rgb(96, 139, 168);
     flex: 1 1 auto;
-        margin: 0;
+    margin: 0 5px 0 0;
     font-size: 1.2em;
     font-weight: normal;
     padding: 10px;
@@ -155,12 +160,15 @@ export default {
   text-decoration:none;
   text-shadow:0px 1px 0px #b23e35;
 }
+
 .myButton:hover {
   background:linear-gradient(to bottom, #eb675e 5%, #e4685d 100%);
   background-color:#eb675e;
 }
+
 .myButton:active {
   position:relative;
   top:1px;
 }
+
 </style>
