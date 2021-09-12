@@ -22,7 +22,7 @@ import { useAuthState } from '../firebase'
 import { useRouter } from 'vue-router'
 
 export default {
-  name: 'Feed',
+  name: 'Pokemon',
   data () {
     return {
       ranNum: '',
