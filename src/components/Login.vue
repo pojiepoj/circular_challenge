@@ -28,7 +28,7 @@ export default {
       const { email, password } = e.target.elements
       try {
         await signInWithEmailAndPassword(auth, email.value, password.value)
-        router.push('/feed')
+        router.push('/pokemon')
       } catch (e) {
         alert(e.message)
       }

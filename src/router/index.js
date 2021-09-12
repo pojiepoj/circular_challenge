@@ -9,9 +9,9 @@ const routes = [
     meta: { requiresAuth: false }
   },
   {
-    path: '/feed',
-    name: 'Feed',
-    component: () => import('../views/Feed.vue'),
+    path: '/pokemon',
+    name: 'Pokemon',
+    component: () => import('../views/Pokemon.vue'),
     meta: { requiresAuth: true }
   }
 ]
@@ -28,7 +28,7 @@ router.beforeEach(async (to, from, next) => {
   const isAuth = await getUserState()
 
   if (requiresAuth && !isAuth) next('/')
-  else if (requiresUnauth && isAuth) next('/feed')
+  else if (requiresUnauth && isAuth) next('/pokemon')
   else next()
 })
 
