@@ -1,4 +1,4 @@
-# circular_challenge
+# Now Circular Challenge
 
 ## Project setup
 ```
