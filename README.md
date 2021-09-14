@@ -17,6 +17,9 @@ npm run serve
 - Pokedex Promise V2
     - This is a wrapper library to help call the Pokeapi.co
     - Installation is already included in the package.json as part of dependencies
+- Axios
+    - It's a library to use for API requests and process the results of the API requested. 
+    - Installation is already included in the package.json as part of dependencies
 
 ### Pokedex Promise v2.
 ```
