@@ -10,9 +10,17 @@
         label(for='text') Search Pokemon
         input#text(type='text' name='searchtxt' placeholder='Pokemon Name...' v-model='searchtxt')
         input(type='submit' value='Search')
-    div(v-if='pokemon != null')
+    br
+    div.pokemon__container(v-if='pokemon != null')
       h1 {{pokemon?.name}}
       img(v-bind:src='pokemon.img')
+      table.pokemon__stats
+        thead
+          tr
+            td.stats-name(v-for="stats in pokemon.stats" :key="stats.name" v-text="stats.name")
+        tbody
+          tr
+            td(v-for="stats in pokemon.stats" :key="stats.name" v-text="stats.value")
 
 </template>
 
@@ -171,4 +179,27 @@ export default {
   top:1px;
 }
 
+.pokemon__container {
+  background:rgba(180, 179, 179, 0.5);
+  border-radius: 5px;
+  box-shadow: 0 1.5px 0 0 rgba(0,0,0,0.1);
+  width:100%;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  h1 {
+    text-transform: capitalize;
+  }
+}
+.pokemon__stats {
+    width:100%;
+    .stats-name {
+        text-transform: capitalize;
+    }
+    thead{
+        font-weight: bold;
+        color: rgba(0, 132, 255, 0.5);
+    }
+}
 </style>
