@@ -6,7 +6,7 @@
     "serve": "vue-cli-service serve",
     "build": "vue-cli-service build",
     "lint": "vue-cli-service lint",
-    "dev": "concurrently \"cd node-api && node app\" \"npm run serve\""
+    "dev": "concurrently \"cd server && node app\" \"npm run serve\""
   },
   "dependencies": {
     "axios": "^0.21.4",
