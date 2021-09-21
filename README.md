@@ -5,6 +5,11 @@
 npm install
 ```
 
+### Compiles and launch node server in one command.
+```
+npm run dev
+```
+
 ### Compiles and hot-reloads for development
 ```
 npm run serve
@@ -30,7 +35,7 @@ For [Pokedex Promise reference](https://github.com/PokeAPI/pokedex-promise-v2).
 ### Api Server
 Used Node to host locally an API server, using port 3000 as default port if there is no configuration env available. 
 Used Express to build and create API routes.
-To launch the node server; traverse into /src/node-api and execute
+To launch the node server; traverse into server/ and execute
 ```
 node app.js
 ```
